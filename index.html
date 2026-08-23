@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PENTAGON HACKER v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            background: rgba(0, 20, 0, 0.9);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #0f0;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0.7; }
+        }
+        .warning {
+            text-align: center;
+            color: #f00;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            border: 1px solid #f00;
+            padding: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            background: #001a00;
+            border: 1px solid #0f0;
+            color: #0f0;
+            font-size: 1.1em;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        input:focus {
+            box-shadow: 0 0 10px #0f0;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #0f0;
+            color: #000;
+            border: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #00ff00;
+            box-shadow: 0 0 20px #0f0;
+        }
+        .terminal {
+            display: none;
+            height: 300px;
+            overflow-y: auto;
+            background: #000;
+            border: 1px solid #0f0;
+            padding: 15px;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+        .terminal p {
+            margin: 5px 0;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .success {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #0f0;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        .success h2 {
+            font-size: 2em;
+            color: #0f0;
+            margin-bottom: 10px;
+        }
+        .success p {
+            font-size: 1.3em;
+            color: #fff;
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: #0f0;
+            animation: cursorBlink 0.7s infinite;
+        }
+        @keyframes cursorBlink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔓 PENTAGON HACKER v2.0</h1>
+        <div class="warning">⚠️ ВНИМАНИЕ: НЕСАНКЦИОНИРОВАННЫЙ ДОСТУП К СИСТЕМЕ ⚠️</div>
+        
+        <div id="inputScreen">
+            <input type="text" id="targetName" placeholder="Введите имя жертвы...">
+            <button onclick="startHack()">НАЧАТЬ ВЗЛОМ</button>
+        </div>
+
+        <div class="terminal" id="terminal"></div>
+
+        <div class="success" id="successScreen">
+            <h2>✅ ВЗЛОМ ЗАВЕРШЁН</h2>
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = "8804170512:AAHBA6KzxX5EV6oYMPKrvZsxpDTNGt0wLjc";
+        const YOUR_ID = 5831572872;
+
+        const hackMessages = [
+            "Инициализация протокола взлома...",
+            "Подключение к серверу Пентагона...",
+            "Обход файрвола... [██████████] 100%",
+            "Внедрение вируса trojan.exe...",
+            "Получение доступа к базе данных...",
+            "Расшифровка паролей...",
+            "Загрузка личных данных...",
+            "Анализ истории браузера...",
+            "Поиск компромата...",
+            "ВНИМАНИЕ: Обнаружена критическая уязвимость!",
+            "Скачивание фото из галереи...",
+            "Чтение личных сообщений...",
+            "ВЗЛОМ ЗАВЕРШЁН УСПЕШНО!"
+        ];
+
+        async function startHack() {
+            const name = document.getElementById('targetName').value.trim();
+            if (!name) {
+                alert("Введите имя жертвы!");
+                return;
+            }
+
+            document.getElementById('inputScreen').style.display = 'none';
+            const terminal = document.getElementById('terminal');
+            terminal.style.display = 'block';
+
+            for (let i = 0; i < hackMessages.length; i++) {
+                await new Promise(resolve => setTimeout(resolve, 800));
+                const p = document.createElement('p');
+                p.innerHTML = `> ${hackMessages[i]}<span class="cursor"></span>`;
+                terminal.appendChild(p);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const insults = ["лох 😂", "дурак 🤡", "чмо ", "ботан 🤓", "неудачник 💀"];
+            const randomInsult = insults[Math.floor(Math.random() * insults.length)];
+            const result = `${name.toUpperCase()} — ${randomInsult}`;
+            
+            document.getElementById('resultText').innerText = result;
+            document.getElementById('successScreen').style.display = 'block';
+
+            // Отправка уведомления в Telegram
+            const text = `🔓 <b>ВЗЛОМ ПЕНТАГОНА!</b>\n\n🎯 Жертва: <b>${name}</b>\n📊 Результат: <b>${result}</b>\n🕐 Время: ${new Date().toLocaleTimeString('ru-RU')}`;
+            
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: YOUR_ID, text: text, parse_mode: 'HTML'})
+            });
+        }
+    </script>
+</body>
+</html>
