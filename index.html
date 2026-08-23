@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PENTAGON HACKER v2.0</title>
+    <title>PENTAGON HACKER v3.0</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -96,20 +96,48 @@
         }
         .success {
             display: none;
-            text-align: center;
             margin-top: 20px;
             padding: 20px;
             border: 2px solid #0f0;
             background: rgba(0, 255, 0, 0.1);
         }
         .success h2 {
-            font-size: 2em;
+            font-size: 1.8em;
             color: #0f0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .data-row {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid #0f0;
+        }
+        .data-label {
+            color: #0f0;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .data-value {
+            color: #fff;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        .rating {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #f00;
+        }
+        .rating h3 {
+            color: #f00;
+            font-size: 1.5em;
             margin-bottom: 10px;
         }
-        .success p {
-            font-size: 1.3em;
+        .rating p {
             color: #fff;
+            font-size: 1.2em;
         }
         .cursor {
             display: inline-block;
@@ -125,7 +153,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔓 PENTAGON HACKER v2.0</h1>
+        <h1>🔓 PENTAGON HACKER v3.0</h1>
         <div class="warning">⚠️ ВНИМАНИЕ: НЕСАНКЦИОНИРОВАННЫЙ ДОСТУП К СИСТЕМЕ ⚠️</div>
         
         <div id="inputScreen">
@@ -137,7 +165,11 @@
 
         <div class="success" id="successScreen">
             <h2>✅ ВЗЛОМ ЗАВЕРШЁН</h2>
-            <p id="resultText"></p>
+            <div id="stolenData"></div>
+            <div class="rating">
+                <h3> РЕЙТИНГ ЖЕРТВЫ</h3>
+                <p id="ratingText"></p>
+            </div>
         </div>
     </div>
 
@@ -161,6 +193,36 @@
             "ВЗЛОМ ЗАВЕРШЁН УСПЕШНО!"
         ];
 
+        const passwords = ["123456", "qwerty", "password", "iloveyou", "admin123", "111111", "000000"];
+        const searchHistory = [
+            "как стать умнее",
+            "почему меня никто не любит",
+            "как познакомиться с девушкой",
+            "признаки того что ты лох",
+            "как перестать быть неудачником",
+            "почему я такой тупой",
+            "как стать крутым",
+            "причины моей одиночности"
+        ];
+        const secrets = [
+            "Тайно смотрит мультики для малышей",
+            "Боится темноты и спит с ночником",
+            "Разговаривает с котом как с человеком",
+            "Плачет над грустными рекламами",
+            "Гуглит свои симптомы и думает что умирает",
+            "Хранит детские фото в отдельной папке",
+            "Танцует перед зеркалом когда никто не видит",
+            "Пишет стихи и сразу удаляет"
+        ];
+        const ratings = [
+            "Уровень лоха: МАКСИМАЛЬНЫЙ 🔴",
+            "Статус: Главный неудачник района 💀",
+            "Рейтинг: 0/10 — даже боты жалеют",
+            "Вердикт: Безнадёжный случай 😂",
+            "Классификация: Элитный лох 👑",
+            "Уровень кринжа: ЗАШКАЛИВАЕТ 📈"
+        ];
+
         async function startHack() {
             const name = document.getElementById('targetName').value.trim();
             if (!name) {
@@ -182,15 +244,34 @@
 
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            const insults = ["лох 😂", "дурак 🤡", "чмо ", "ботан 🤓", "неудачник 💀"];
-            const randomInsult = insults[Math.floor(Math.random() * insults.length)];
-            const result = `${name.toUpperCase()} — ${randomInsult}`;
-            
-            document.getElementById('resultText').innerText = result;
+            // Генерируем фейковые данные
+            const password = passwords[Math.floor(Math.random() * passwords.length)];
+            const search = searchHistory[Math.floor(Math.random() * searchHistory.length)];
+            const secret = secrets[Math.floor(Math.random() * secrets.length)];
+            const rating = ratings[Math.floor(Math.random() * ratings.length)];
+
+            // Показываем украденные данные
+            const stolenData = document.getElementById('stolenData');
+            stolenData.innerHTML = `
+                <div class="data-row">
+                    <div class="data-label">🔑 Пароль от почты:</div>
+                    <div class="data-value">${password}</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label">🔍 Последний запрос в Google:</div>
+                    <div class="data-value">"${search}"</div>
+                </div>
+                <div class="data-row">
+                    <div class="data-label"> Секретная информация:</div>
+                    <div class="data-value">${secret}</div>
+                </div>
+            `;
+
+            document.getElementById('ratingText').innerText = rating;
             document.getElementById('successScreen').style.display = 'block';
 
             // Отправка уведомления в Telegram
-            const text = `🔓 <b>ВЗЛОМ ПЕНТАГОНА!</b>\n\n🎯 Жертва: <b>${name}</b>\n📊 Результат: <b>${result}</b>\n🕐 Время: ${new Date().toLocaleTimeString('ru-RU')}`;
+            const text = `🔓 <b>ВЗЛОМ ПЕНТАГОНА!</b>\n\n🎯 Жертва: <b>${name}</b>\n🔑 Пароль: ${password}\n Поиск: "${search}"\n🤫 Секрет: ${secret}\n📊 ${rating}\n🕐 Время: ${new Date().toLocaleTimeString('ru-RU')}`;
             
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
